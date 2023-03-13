@@ -1,0 +1,38 @@
+{
+    "name": "wedevs/wpfeather",
+    "description": "A very lightweight floating contact form for WordPress with built-in spam protection & Cloudflare Turnstile integration",
+    "type": "wordpress-plugin",
+    "license": "GPL v2 or later",
+    "authors": [
+        {
+            "name": "wedevs",
+            "email": "info@wedevs.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "tareq1988/wp-php-cs-fixer": "dev-master",
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7",
+        "phpcompatibility/phpcompatibility-wp": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "WeDevs\\WpFeather\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4"
+        }
+    }
+}
