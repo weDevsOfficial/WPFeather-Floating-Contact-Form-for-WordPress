@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import Settings from './Settings';
 
-var mountNode = document.getElementById('wpfeather-settings');
+import '../css/floating-form.scss'
+
+const mountNode = document.getElementById('wpfeather-settings');
 ReactDOM.render(<Settings />, mountNode);

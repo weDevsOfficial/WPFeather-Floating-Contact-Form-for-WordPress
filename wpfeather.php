@@ -153,7 +153,6 @@ final class WPfeather {
 		define( 'WPFEATHER_FILE', __FILE__ );
 		define( 'WPFEATHER_PATH', dirname( WPFEATHER_FILE ) );
 		define( 'WPFEATHER_INCLUDES', WPFEATHER_PATH . '/includes' );
-		define( 'WPFEATHER_TEMPLATE_PATH', WPFEATHER_PATH . '/templates/' );
 		define( 'WPFEATHER_URL', plugins_url( '', WPFEATHER_FILE ) );
 		define( 'WPFEATHER_ASSETS', WPFEATHER_URL . '/assets' );
 		define( 'WPFEATHER_BASE_NAME', plugin_basename( __FILE__ ) );
@@ -217,6 +216,10 @@ final class WPfeather {
 	public function init_classes() {
 		if ( $this->is_request( 'admin' ) ) {
 			$this->container['admin'] = new WeDevs\WpFeather\Admin();
+		}
+
+		if ( $this->is_request( 'frontend' ) ) {
+			$this->container['frontend'] = new WeDevs\WpFeather\Frontend();
 		}
 	}
 

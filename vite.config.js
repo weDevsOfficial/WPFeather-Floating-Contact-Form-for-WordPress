@@ -1,6 +1,7 @@
 import React from 'react';
 import path from 'path';
 import { defineConfig } from "vite";
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig(() => ({
     publicDir: "resources",
@@ -9,7 +10,7 @@ export default defineConfig(() => ({
         emptyOutDir: true,
         outDir: path.resolve(__dirname, 'assets' ),
         rollupOptions: {
-            input: path.resolve(__dirname, 'src/index.jsx' ),
+            input: path.resolve(__dirname, 'src/js/index.jsx' ),
             output: {
                 // Output CSS files in a 'css' directory
                 // Output image files in an 'img' directory
@@ -39,5 +40,13 @@ export default defineConfig(() => ({
                 }
             },
         },
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'src/js/floating-form.js',
+                    dest: 'js/'
+                }
+            ]
+        })
     ],
 }));
