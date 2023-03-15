@@ -14,7 +14,7 @@ $font-family: 'Inter', sans-serif;
 }
 
 .contact {
-  position: absolute;
+  position: fixed;
   bottom: 90px;
   right: 20px;
   width: 370px;
@@ -178,7 +178,7 @@ $font-family: 'Inter', sans-serif;
 }
 
 .toggler {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;

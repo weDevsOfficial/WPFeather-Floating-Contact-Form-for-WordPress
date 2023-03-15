@@ -149,19 +149,42 @@ final class WPfeather {
 	 * @return void
 	 */
 	public function define_constants() {
-		define( 'WPFEATHER_VERSION', self::VERSION );
-		define( 'WPFEATHER_FILE', __FILE__ );
-		define( 'WPFEATHER_PATH', dirname( WPFEATHER_FILE ) );
-		define( 'WPFEATHER_INCLUDES', WPFEATHER_PATH . '/includes' );
-		define( 'WPFEATHER_URL', plugins_url( '', WPFEATHER_FILE ) );
-		define( 'WPFEATHER_ASSETS', WPFEATHER_URL . '/assets' );
-		define( 'WPFEATHER_BASE_NAME', plugin_basename( __FILE__ ) );
+		$this->define( 'WPFEATHER_VERSION', self::VERSION );
+		$this->define( 'WPFEATHER_FILE', __FILE__ );
+		$this->define( 'WPFEATHER_PATH', dirname( WPFEATHER_FILE ) );
+		$this->define( 'WPFEATHER_INCLUDES', WPFEATHER_PATH . '/includes' );
+		$this->define( 'WPFEATHER_URL', plugins_url( '', WPFEATHER_FILE ) );
+		$this->define( 'WPFEATHER_ASSETS', WPFEATHER_URL . '/assets' );
+		$this->define( 'WPFEATHER_BASE_NAME', plugin_basename( __FILE__ ) );
+
+		$options = get_option( 'wpfeather_options' );
+
+		// define the ajax key suffix. it will append after the ajax action name
+		if ( ! empty( $options['secret_keys'] ) && ! empty( $options['secret_keys'][0] ) ) {
+			$this->define( 'WPFEATHER_AJAX_KEY', sanitize_key( $options['secret_keys'][0] ) );
+		} else {
+			$this->define( 'WPFEATHER_AJAX_KEY', '' );
+		}
+	}
+
+	/**
+	 * Define constant if not already set.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string      $name  Constant name.
+	 * @param string|bool $value Constant value.
+	 */
+	private function define( $name, $value ) {
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
+		}
 	}
 
 	/**
 	 * Load the plugin after all plugis are loaded.
 	 *
-	 * @since 0.1
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -220,6 +243,10 @@ final class WPfeather {
 
 		if ( $this->is_request( 'frontend' ) ) {
 			$this->container['frontend'] = new WeDevs\WpFeather\Frontend();
+		}
+
+		if ( $this->is_request( 'ajax' ) ) {
+			$this->container['ajax'] = new WeDevs\WpFeather\Ajax();
 		}
 	}
 

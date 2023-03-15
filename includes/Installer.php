@@ -16,6 +16,7 @@ class Installer {
      */
     public function run() {
         $this->add_version();
+        $this->add_keys();
     }
 
     /**
@@ -34,4 +35,25 @@ class Installer {
 
         update_option( 'wpfeather_version', WPFEATHER_VERSION );
     }
+
+	public function add_keys() {
+		$wpfeather_options = get_site_option( 'wpfeather_options' );
+		if ( empty( $wpfeather_options ) ) {
+			$wpfeather_options = [];
+		}
+
+		// already have secret_keys. no need to generate again
+		if ( ! empty( $wpfeather_options['secret_keys'] ) ) {
+			return;
+		}
+
+		$keys = [];
+		for ( $n = 0; $n < 21; ++ $n ) {
+			$keys[] = uniqid();
+		}
+		$wpfeather_options['secret_keys'] = $keys;
+
+		// save the newly generated keys
+		essential_form_update_option( 'wpfeather_options', $wpfeather_options );
+	}
 }
