@@ -1,3 +1,5 @@
+import '../css/floating-form.scss';
+
 ;(function($) {
     const form = document.querySelector('#wpfeather-form');
     const toggleBtn = document.querySelector('.toggler');

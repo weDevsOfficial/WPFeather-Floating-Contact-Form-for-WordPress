@@ -41,5 +41,9 @@ module.exports = {
 	},
 	entry: {
 		settings: './src/wpfeather-settings.js',
+		form: {
+			import: './src/js/floating-form.js',
+			filename: 'floating-form.js',
+		},
 	}
 };

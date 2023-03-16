@@ -24,7 +24,7 @@ class Frontend {
 
 	public function register_scripts() {
 		wp_register_script( 'wpfeather-floating-form', WPFEATHER_ASSETS . '/js/floating-form.js', [ 'jquery' ], WPFEATHER_VERSION, true );
-		wp_register_style( 'wpfeather-floating-form', WPFEATHER_ASSETS . '/css/index.css', [], WPFEATHER_VERSION );
+		wp_register_style( 'wpfeather-floating-form', WPFEATHER_ASSETS . '/js/form.css', [], WPFEATHER_VERSION );
 
 		$options = get_option( 'wpfeather_options' );
 
