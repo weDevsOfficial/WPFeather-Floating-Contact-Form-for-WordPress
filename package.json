@@ -2,11 +2,26 @@
   "name": "wpfeather-floating-contact-form-for-wordpress",
   "version": "1.0.0",
   "description": "A very lightweight floating contact form for WordPress with built-in spam protection & Cloudflare Turnstile integration",
-  "main": "index.js",
+  "main": "src/wpfeather-settings.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "start:hot": "wp-scripts start --hot",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js",
+    "make-pot:local": "wp i18n make-pot . languages/wpfeathers.pot",
+    "zip:create": "node bin/zip",
+    "version:replace": "node bin/version-replace",
+    "release": "npm run version:replace && npm run build && npm run make-pot:local &&` npm run zip:create"
   },
   "repository": {
     "type": "git",
@@ -19,13 +34,22 @@
   },
   "homepage": "https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress#readme",
   "devDependencies": {
-    "@vitejs/plugin-react": "^3.1.0",
+    "@tailwindcss/forms": "^0.5.3",
+    "@wordpress/api-fetch": "^6.21.0",
+    "@wordpress/core-data": "^6.1.0",
+    "@wordpress/i18n": "^4.24.0",
+    "@wordpress/scripts": "^25.1.0",
+    "archiver": "^5.3.1",
     "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.59.2",
-    "vite": "^4.1.4",
-    "vite-plugin-live-reload": "^3.0.1",
-    "vite-plugin-static-copy": "^0.13.0"
+    "replace-in-file": "^6.3.5",
+    "sass": "^1.59.3",
+    "tailwindcss": "^3.2.4"
+  },
+  "dependencies": {
+    "@wordpress/data": "^8.1.0",
+    "@wordpress/element": "^5.1.0"
   }
 }

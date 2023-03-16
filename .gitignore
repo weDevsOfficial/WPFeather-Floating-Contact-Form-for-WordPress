@@ -12,6 +12,7 @@ log.txt
 /dist
 /tmp
 /build
+/languages
 
 # Dependencies #
 ###################
