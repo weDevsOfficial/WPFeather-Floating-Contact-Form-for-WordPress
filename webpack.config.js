@@ -34,6 +34,7 @@ module.exports = {
 	...updatedConfig,
 
 	output: {
+		clean: true,
 		filename: '[name].js',
 		path: resolve( 'assets', 'js' ),
 		chunkFilename: 'chunks/[chunkhash].js',

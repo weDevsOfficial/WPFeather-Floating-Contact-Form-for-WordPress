@@ -1,5 +1,5 @@
 import { render } from '@wordpress/element';
-import './css/wpfeather-settings.css';
-import App from './components/App';
+import './css/wpfeather-settings.scss';
+import Settings from './components/Settings';
 
-render( <App />, document.getElementById( 'wpfeather-settings' ) );
+render( <Settings />, document.getElementById( 'wpfeather-settings' ) );

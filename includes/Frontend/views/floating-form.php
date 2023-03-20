@@ -1,4 +1,4 @@
-<div class="contact">
+<div class="wpfeather-contact">
 	<header class="contact-header">
 		<svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" fill="none"><path fill="#1E21A3" d="M35.789 27.802a1.25 1.25 0 0 1-.886-.362l-4.69-4.628h-11.89a6.237 6.237 0 0 1-6.237-6.237V9.08a1.248 1.248 0 0 1 2.495 0v7.495a3.742 3.742 0 0 0 3.743 3.742h12.475c.33.005.646.134.886.362l4.99 4.99a1.248 1.248 0 0 1-.886 2.133Z"/><path fill="#B8B9FF" d="M4.601 37.782a1.247 1.247 0 0 1-1.247-1.248V19.07a6.237 6.237 0 0 1 6.237-6.238h13.723a6.237 6.237 0 0 1 6.237 6.238v8.495a1.248 1.248 0 0 1-2.495 0V19.07a3.742 3.742 0 0 0-3.742-3.743H9.59A3.742 3.742 0 0 0 5.85 19.07v17.464a1.247 1.247 0 0 1-1.248 1.248Z"/><path fill="#B8B9FF" d="M4.664 37.782a1.25 1.25 0 0 1-1.255-1.248 1.248 1.248 0 0 1 .37-.886l4.99-4.99a1.31 1.31 0 0 1 .885-.361h13.66a3.742 3.742 0 0 0 3.742-3.743 1.247 1.247 0 0 1 2.495 0 6.239 6.239 0 0 1-6.237 6.238H10.178L5.55 37.42a1.248 1.248 0 0 1-.886.361Z"/><path fill="#1E21A3" d="M36.154 23.694a1.247 1.247 0 0 0 2.13-.882V9.09a6.238 6.238 0 0 0-6.238-6.237H18.324a6.238 6.238 0 0 0-6.238 6.237 1.248 1.248 0 0 0 2.495 0 3.743 3.743 0 0 1 3.743-3.742h13.722A3.743 3.743 0 0 1 35.79 9.09v13.722c0 .331.131.648.365.882Z"/></svg>
 		<h3><?php esc_html_e( 'Contact Us', 'wpfeather' );  ?></h3>
@@ -17,10 +17,11 @@
 				<small class="contact-hint"><?php esc_html_e( 'You must enter email', 'wpfeather' ); ?></small>
 			</div>
 			<div class="contact-input-group">
-				<textarea name="message" id="message" placeholder="<?php echo esc_attr( 'Message' ); ?>>"></textarea>
+				<textarea name="message" id="message" placeholder="<?php echo esc_attr( 'Message' ); ?>"></textarea>
 				<small class="contact-hint"><?php esc_html_e( 'You must enter message', 'wpfeather' ); ?></small>
 			</div>
-			<button type="submit"><?php esc_html_e( 'Send', 'wpfeather' ); ?></button>
+            <div class="cf-turnstile" data-sitekey="<?php echo $turnstile_site_key; ?>"></div>
+            <button type="submit"><?php esc_html_e( 'Send', 'wpfeather' ); ?></button>
 		</div>
 
 		<div class="contact-thanks-msg">
@@ -32,7 +33,7 @@
 	<!--  end:form  -->
 </div>
 
-<button class="toggler">
+<button class="wpfeather-toggler">
 	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" class="message-svg"><path fill="#fff" fill-rule="evenodd" d="M1.279 23.469a1.198 1.198 0 0 1-1.198-1.187V6.908A5.912 5.912 0 0 1 5.993.996h11.835a5.912 5.912 0 0 1 5.913 5.912v7.1a5.912 5.912 0 0 1-5.913 5.911H6.392l-4.436 3.328a1.187 1.187 0 0 1-.677.222Zm4.725-20.1a3.55 3.55 0 0 0-3.55 3.55v13l2.84-2.13c.206-.152.455-.233.71-.232h11.824a3.55 3.55 0 0 0 3.55-3.55V6.908a3.55 3.55 0 0 0-3.55-3.55L6.004 3.37Zm8.264 5.935H7.18a1.187 1.187 0 1 1 0-2.363h7.088a1.187 1.187 0 1 1 0 2.363ZM7.18 14.029h3.55a1.188 1.188 0 1 0 0-2.362H7.18a1.188 1.188 0 0 0-.488 2.308c.157.052.323.07.488.054Z" clip-rule="evenodd"/></svg>
 	<!--  end: message icon  -->
 

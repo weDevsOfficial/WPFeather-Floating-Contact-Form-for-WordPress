@@ -47,9 +47,5 @@
     "replace-in-file": "^6.3.5",
     "sass": "^1.59.3",
     "tailwindcss": "^3.2.4"
-  },
-  "dependencies": {
-    "@wordpress/data": "^8.1.0",
-    "@wordpress/element": "^5.1.0"
   }
 }

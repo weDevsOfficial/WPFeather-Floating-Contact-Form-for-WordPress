@@ -5,7 +5,6 @@ $theme-hover: #4338ca;
 $text-color: #6b7280;
 $theme-bg-text-color: #c7d2fe;
 $border: #d1d5db;
-$font-family: 'Inter', sans-serif;
 
 * {
   margin: 0;
@@ -13,12 +12,11 @@ $font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
 
-.contact {
+.wpfeather-contact {
   position: fixed;
   bottom: 90px;
   right: 20px;
   width: 370px;
-  font-family: $font-family;
   border-radius: 10px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -37,7 +35,7 @@ $font-family: 'Inter', sans-serif;
     transform: translateY(0);
   }
 
-  &-header {
+  .contact-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,7 +78,6 @@ $font-family: 'Inter', sans-serif;
     input[type='email'],
     textarea {
       color: $text-color;
-      font-family: $font-family;
       padding: 16px;
       border: 1px solid $border;
       border-radius: 5px;
@@ -136,14 +133,14 @@ $font-family: 'Inter', sans-serif;
     }
   }
 
-  &-input-group {
+  .contact-input-group {
     position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
   }
 
-  &-hint {
+  .contact-hint {
     color: #ff0000;
     font-size: 0.875rem;
     display: none;
@@ -177,7 +174,7 @@ $font-family: 'Inter', sans-serif;
   }
 }
 
-.toggler {
+.wpfeather-toggler {
   position: fixed;
   display: flex;
   align-items: center;

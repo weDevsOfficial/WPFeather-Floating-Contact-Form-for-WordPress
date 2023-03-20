@@ -72,7 +72,7 @@ class Menu {
 		wp_register_style(
 			'wpfeather-settings',
 			plugins_url( 'assets/js/settings.css', WPFEATHER_FILE ),
-			[],
+			[ 'wp-components' ],
 			$assets['version']
 		);
     }

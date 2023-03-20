@@ -1,50 +1,52 @@
 import '../css/floating-form.scss';
 
 ;(function($) {
-    const form = document.querySelector('#wpfeather-form');
-    const toggleBtn = document.querySelector('.toggler');
-    const contactForm = document.querySelector('.contact');
+    const form = $('#wpfeather-form');
+    const toggleBtn = $('.wpfeather-toggler');
+    const contactForm = $('.wpfeather-contact');
+    const siteKey = $('.cf-turnstile').data('sitekey');
+    // const siteKey = '0x4AAAAAAADQdgiADHUielUbUBtzJ4raQXk';
 
     // handle form submit
-    form.addEventListener('submit', (e) => {
+    form.on('submit', (e) => {
         e.preventDefault();
 
-        const fullName = document.querySelector('#wpfeather-form #full_name');
-        const email = document.querySelector('#wpfeather-form #email');
-        const message = document.querySelector('#wpfeather-form #message');
+        const fullName = $('#wpfeather-form #full_name');
+        const email = $('#wpfeather-form #email');
+        const message = $('#wpfeather-form #message');
         const errors = [];
 
-        if (fullName.value === '') {
-            fullName.classList.add('has-error');
+        if (fullName.val().trim() === '') {
+            fullName.addClass('has-error');
 
             errors.push({
                 type: 'required',
                 field: fullName
             });
         } else {
-            fullName.classList.remove('has-error');
+            fullName.removeClass('has-error');
         }
 
-        if (email.value === '') {
-            email.classList.add('has-error');
+        if (email.val().trim() === '') {
+            email.addClass('has-error');
 
             errors.push({
                 type: 'required',
                 field: email
             });
         } else {
-            email.classList.remove('has-error');
+            email.removeClass('has-error');
         }
 
-        if (message.value === '') {
-            message.classList.add('has-error');
+        if (message.val().trim() === '') {
+            message.addClass('has-error');
 
             errors.push({
                 type: 'required',
                 field: message
             });
         } else {
-            message.classList.remove('has-error');
+            message.removeClass('has-error');
         }
 
         if (errors.length) {
@@ -56,15 +58,20 @@ import '../css/floating-form.scss';
             type: 'POST',
             data: {
                 action: wpFeatherForm.actionKey,
-                fullName: fullName.value,
-                email: email.value,
-                message: message.value,
+                fullName: fullName,
+                email: email,
+                message: message,
                 nonce: wpFeatherForm.nonce
             },
             success: function (response) {
                 if (response.success) {
                     $('#wpfeather-form button, #wpfeather-form .contact-input-group').css('display', 'none');
                     $('.contact-thanks-msg').css('display', 'block');
+                } else {
+                    errors.push({
+                        type: 'required',
+                        field: message
+                    });
                 }
             },
             error: function (err) {
@@ -76,8 +83,28 @@ import '../css/floating-form.scss';
     });
 
     // Handle toggler button
-    toggleBtn.addEventListener('click', () => {
-        contactForm.classList.toggle('contact-open');
-        toggleBtn.classList.toggle('toggler-close');
+    toggleBtn.on('click', () => {
+        contactForm.toggleClass('wpfeather-contact-open');
+        toggleBtn.toggleClass('wpfeather-toggler-close');
+
+        if ( $(contactForm).hasClass('wpfeather-contact-open') ) {
+            console.log('form is open');
+        }
     });
+
+
+    // if (typeof turnstile === 'undefined') {
+    //     return;
+    // }
+    //
+    // turnstile.render('#wpfeather-form', {
+    //     sitekey: siteKey,
+    //     callback: function(token) {
+    //         console.log(`Challenge Success ${token}`);
+    //     },
+    // });
+    //
+    // // if using synchronous loading, will be called once the DOM is ready
+    // turnstile.ready(onloadTurnstileCallback);
+
 })(jQuery);
