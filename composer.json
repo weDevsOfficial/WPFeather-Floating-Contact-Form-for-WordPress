@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "woocommerce/action-scheduler": "^3.4.2"
     },
     "require-dev": {
         "tareq1988/wp-php-cs-fixer": "dev-master",

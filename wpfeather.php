@@ -49,6 +49,8 @@ if ( ! file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+// include background process file
+require_once __DIR__  . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 /**
  * WPfeather class
  *
@@ -89,6 +91,8 @@ final class WPfeather {
 		register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
 		add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
+
+		add_action( 'wpfeather_mail_frontend_form_submission', [ $this, 'send_mail' ], 10, 3 );
 	}
 
 	/**
@@ -288,6 +292,54 @@ final class WPfeather {
 
 			case 'frontend':
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
+
+	/**
+	 * Send frontend form submitted data to a mail
+	 *
+	 * @param $name
+	 * @param $email
+	 * @param $message
+	 *
+	 * @return void
+	 */
+	public function send_mail( $name, $email, $message ) {
+		$email_from    = get_bloginfo( 'admin_email' );
+		$email_to      = get_bloginfo( 'admin_email' );
+		$email_subject = sprintf( esc_html__( 'Message from %s', 'wpfeather' ), get_bloginfo( 'name' ) );
+
+		/* translators: Do not translate USERNAME, URL_DELETE, SITENAME, SITEURL: those are placeholders. */
+		$mail_body = __(
+			"Howdy,
+
+Someone submitted a form through WPFeather from ###SITEURL###. The form details below:\n
+Name: $name\n
+e-mail: $email\n
+Message: $message\n
+
+Thanks for using WPFeather"
+		);
+		/**
+		 * Filters the text for the email sent when WPFeather frontend form is submitted.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $mail_body The email text.
+		 */
+		$mail_body = apply_filters( 'wpfeather_frontend_form_email_content', $mail_body );
+		$mail_body = str_replace( '###SITEURL###', network_home_url(), $mail_body );
+
+		$headers = [
+			'Content-Type: text/html; charset=UTF-8',
+			'From: "' . esc_attr( get_bloginfo( 'name' ) ) . '" <' . sanitize_email( $email_from ) . '>',
+			'Reply-To: <'.sanitize_email( $email ).'>'
+		];
+
+		$result = wp_mail( $email_to, $email_subject, $mail_body, $headers );
+
+		if ( ! $result ) {
+			error_log( '[WPFeather]: cannot send mail to admin.' );
 		}
 	}
 }

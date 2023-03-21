@@ -58,9 +58,9 @@ import '../css/floating-form.scss';
             type: 'POST',
             data: {
                 action: wpFeatherForm.actionKey,
-                fullName: fullName,
-                email: email,
-                message: message,
+                fullName: fullName.val().trim(),
+                email: email.val().trim(),
+                message: message.val().trim(),
                 nonce: wpFeatherForm.nonce
             },
             success: function (response) {
@@ -87,9 +87,7 @@ import '../css/floating-form.scss';
         contactForm.toggleClass('wpfeather-contact-open');
         toggleBtn.toggleClass('wpfeather-toggler-close');
 
-        if ( $(contactForm).hasClass('wpfeather-contact-open') ) {
-            console.log('form is open');
-        }
+        if ( $(contactForm).hasClass('wpfeather-contact-open') ) {}
     });
 
 

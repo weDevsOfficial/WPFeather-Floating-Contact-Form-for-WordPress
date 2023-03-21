@@ -18,7 +18,13 @@ class Ajax {
 		add_action( 'wp_ajax_wpfeather_' . WPFEATHER_AJAX_KEY, [ $this, 'handle_frontend_form' ] );
 		add_action( 'wp_ajax_nopriv_wpfeather_' . WPFEATHER_AJAX_KEY, [ $this, 'handle_frontend_form' ] );
 	}
-	
+
+	/**
+	 * Handle the frontend form submission. Sanitize form inputs and submits the formdata to a mail
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 */
 	public function handle_frontend_form() {
 		$nonce = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
@@ -39,38 +45,21 @@ class Ajax {
                 'message' => __( 'Name, email and message is required', 'wpfeather' ),
             ] );
 		}
-		$email_from    = get_bloginfo( 'admin_email' );
-		$email_to      = get_bloginfo( 'admin_email' );
-		$email_subject = sprintf( esc_html__( 'Message from %s', 'WPFeather' ), get_bloginfo( 'name' ) );
 
-		/* translators: Do not translate USERNAME, URL_DELETE, SITENAME, SITEURL: those are placeholders. */
-		$mail_body = __(
-			"Howdy,
+		// define hook name beforehand
+		$mailing_hook = 'wpfeather_mail_frontend_form_submission';
 
-Someone submitted a form through WPFeather from ###SITEURL###. The form details below:\n
-Name: $name\n
-e-mail: $email\n
-Message: $message\n
-
-Thanks for using WPFeather"
-		);
-		/**
-		 * Filters the text for the email sent when WPFeather frontend form is submitted.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $mail_body The email text.
-		 */
-		$mail_body = apply_filters( 'wpfeather_frontend_form_email_content', $mail_body );
-		$mail_body = str_replace( '###SITEURL###', network_home_url(), $mail_body );
-
-		$headers = [
-			'Content-Type: text/html; charset=UTF-8',
-			'From: "' . esc_attr( get_bloginfo( 'name' ) ) . '" <' . sanitize_email( $email_from ) . '>',
-			'Reply-To: <'.sanitize_email( $email ).'>'
-		];
-
-		wp_mail( $email_to, $email_subject, $mail_body, $headers );
+		if ( false === as_next_scheduled_action( $mailing_hook ) ) {
+			// now schedule to send an email containing the frontend result
+			as_enqueue_async_action(
+				$mailing_hook,
+				[
+					'name'    => $name,
+					'email'   => $email,
+					'message' => $message,
+				]
+			);
+		}
 
 		// validation success
 		wp_send_json_success( [
