@@ -26,8 +26,6 @@ class Frontend {
 		wp_register_script( 'wpfeather-form', WPFEATHER_ASSETS . '/js/floating-form.js', [ 'jquery' ], WPFEATHER_VERSION, true );
 		wp_register_style( 'wpfeather-form', WPFEATHER_ASSETS . '/js/form.css', [], WPFEATHER_VERSION );
 
-		$options = get_option( 'wpfeather_options' );
-
 		$wpFeatherForm = [
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 			'actionKey' => 'wpfeather_' . WPFEATHER_AJAX_KEY,

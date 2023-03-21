@@ -69,6 +69,7 @@ class Menu {
 			$assets['version'],
 			true
 		);
+
 		wp_register_style(
 			'wpfeather-settings',
 			plugins_url( 'assets/js/settings.css', WPFEATHER_FILE ),
@@ -85,8 +86,16 @@ class Menu {
      * @return void
      */
     public function enqueue_scripts() {
-        wp_enqueue_style( 'wpfeather-settings' );
-        wp_enqueue_script( 'wpfeather-settings' );
+	    wp_enqueue_style( 'wpfeather-settings' );
+
+	    $settings = [
+		    'root'  => esc_url_raw( rest_url() ),
+		    'nonce' => wp_create_nonce( 'wp_rest' ),
+	    ];
+
+	    wp_localize_script( 'wpfeather-settings', 'wpfeatherSettings', $settings );
+
+	    wp_enqueue_script( 'wpfeather-settings' );
     }
 
 	/**

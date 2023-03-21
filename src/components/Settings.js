@@ -15,6 +15,32 @@ function Settings() {
 
 	function onSubmitFormHandler( event ) {
 		event.preventDefault();
+		setIsPageLoading( true );
+
+		const recipient = event.target.recipient.value;
+		const sitekey = event.target.sitekey.value;
+
+		const settings = {
+			wpfeather_settings: {
+				recipient: recipient,
+				sitekey: sitekey
+			}
+		};
+
+		const settingsUrl = wpfeatherSettings.root + 'wp/v2/settings';
+        const requestMetadata = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(settings)
+        };
+
+        fetch(settingsUrl, requestMetadata)
+			.then(response => response.json())
+			.then();
+
+		setIsPageLoading( false );
 	}
 
 	return (
@@ -56,6 +82,7 @@ function Settings() {
 								<p id="helper-text-explanation"
 								   className="mt-2 text-sm text-gray-500 dark:text-gray-400">We’ll never share your
 									details. Learn more about <a href="https://www.cloudflare.com/products/turnstile/"
+																 target="_blank"
 														 className="font-medium text-blue-600 hover:underline dark:text-blue-500">Cloudflare Turnstile</a>.</p>
 
 							</div>
