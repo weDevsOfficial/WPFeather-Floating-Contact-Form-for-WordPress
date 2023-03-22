@@ -20,7 +20,7 @@ class Menu {
      */
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu' ] );
-        add_action( 'init', [ $this, 'register' ] );
+        add_action( 'init', [ $this, 'register_assets' ] );
         add_action( 'init', [ $this, 'register_translations' ] );
     }
 
@@ -58,14 +58,14 @@ class Menu {
      *
 	 * @return void
 	 */
-	public function register() {
+	public function register_assets() {
 		$assets       = require WPFEATHER_PATH . '/assets/js/settings.asset.php';
 		$dependencies = $assets['dependencies'];
 
 		wp_register_script(
 			'wpfeather-settings',
 			plugins_url( 'assets/js/settings.js', WPFEATHER_FILE ),
-			$dependencies,
+			array_merge( $dependencies, [ 'jquery' ] ),
 			$assets['version'],
 			true
 		);
@@ -89,8 +89,9 @@ class Menu {
 	    wp_enqueue_style( 'wpfeather-settings' );
 
 	    $settings = [
-		    'root'  => esc_url_raw( rest_url() ),
-		    'nonce' => wp_create_nonce( 'wp_rest' ),
+		    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		    'nonce'   => wp_create_nonce( 'wpfeather-settings' ),
+		    'action'  => 'wpfeather_settings',
 	    ];
 
 	    wp_localize_script( 'wpfeather-settings', 'wpfeatherSettings', $settings );

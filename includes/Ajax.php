@@ -16,13 +16,90 @@ class Ajax {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_wpfeather_' . WPFEATHER_AJAX_KEY, [ $this, 'handle_frontend_form' ] );
+		add_action( 'wp_ajax_wpfeather_get_settings', [ $this, 'get_settings' ] );
+		add_action( 'wp_ajax_wpfeather_settings', [ $this, 'handle_settings' ] );
 		add_action( 'wp_ajax_nopriv_wpfeather_' . WPFEATHER_AJAX_KEY, [ $this, 'handle_frontend_form' ] );
+	}
+
+	/**
+	 * Get the wpfeather settings from options table
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function get_settings() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( [
+                'type'    => 'error',
+                'message' => __( 'Unauthorized', 'wpfeather' ),
+            ] );
+		}
+
+		$result = get_option( 'wpfeather_settings' );
+
+		if ( false === $result ) {
+			wp_send_json_success( [
+                'type'    => 'no_data',
+                'message' => __( 'No data found', 'wpfeather' ),
+            ] );
+		} else {
+			wp_send_json_success( [
+				'type'     => 'success',
+				'settings' => $result,
+          ] );
+		}
+	}
+
+	/**
+	 * Save the wpfeather settings page
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function handle_settings() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( [
+	            'type'    => 'error',
+	            'message' => __( 'Unauthorized', 'wpfeather' ),
+	        ] );
+		}
+		$recipient = ! empty( $_POST['recipient'] ) ? sanitize_email( $_POST['recipient'] ) : '';
+		$sitekey   = ! empty( $_POST['sitekey'] ) ? sanitize_key( $_POST['sitekey'] ) : '';
+
+		if ( empty( $recipient ) ) {
+			wp_send_json_error( [
+                'type'    => 'error',
+                'message' => __( 'Recipient e-mail is required', 'wpfeather' ),
+            ] );
+		}
+
+		$updated = update_option( 'wpfeather_settings', [
+			'recipient' => $recipient,
+			'sitekey'   => $sitekey,
+		] );
+
+		if ( $updated ) {
+			wp_send_json_success( [
+                'type'    => 'success',
+                'message' => __( 'Saved successfully', 'wpfeather' ),
+            ] );
+		} else {
+			wp_send_json_error( [
+                'type'    => 'error',
+                'message' => __( 'Error saving data', 'wpfeather' ),
+            ] );
+		}
+
+
 	}
 
 	/**
 	 * Handle the frontend form submission. Sanitize form inputs and submits the formdata to a mail
 	 *
 	 * @since 1.0.0
+	 *
 	 * @return void
 	 */
 	public function handle_frontend_form() {

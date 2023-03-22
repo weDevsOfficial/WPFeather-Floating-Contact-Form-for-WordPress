@@ -2,16 +2,42 @@
  * WordPress dependencies
  */
 import { Fragment, useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 function Settings() {
 	const [isPageLoading, setIsPageLoading] = useState(true);
 
+	const [wpfeatherSettings, setWpfeatherSettings] = useState(window.wpfeatherSettings);
+
 	useEffect(() => {
 		setIsPageLoading( false );
 	}, []);
+
+	useEffect( () => {
+		jQuery.ajax({
+			url: wpfeatherSettings.ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'wpfeather_get_settings'
+			},
+			success: function (response) {
+				if (response.success) {
+					if ( response.data.settings.recipient ) {
+						jQuery('#recipient').val(response.data.settings.recipient);
+					}
+
+					if ( response.data.settings.sitekey ) {
+						jQuery('#sitekey').val(response.data.settings.sitekey);
+					}
+				}
+			},
+			error: function (err) {
+				alert('Something went wrong');
+				console.log(err.responseText);
+			},
+		});
+	}, [] );
 
 	function onSubmitFormHandler( event ) {
 		event.preventDefault();
@@ -20,25 +46,25 @@ function Settings() {
 		const recipient = event.target.recipient.value;
 		const sitekey = event.target.sitekey.value;
 
-		const settings = {
-			wpfeather_settings: {
+		jQuery.ajax({
+			url: wpfeatherSettings.ajaxurl,
+			type: 'POST',
+			data: {
+				action: wpfeatherSettings.action,
+				nonce: wpfeatherSettings.nonce,
 				recipient: recipient,
 				sitekey: sitekey
-			}
-		};
-
-		const settingsUrl = wpfeatherSettings.root + 'wp/v2/settings';
-        const requestMetadata = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(settings)
-        };
-
-        fetch(settingsUrl, requestMetadata)
-			.then(response => response.json())
-			.then();
+			},
+			success: function (response) {
+				if (response.success) {
+				} else {
+					console.log('error');
+				}
+			},
+			error: function (err) {
+				alert('Something went wrong');
+			},
+		});
 
 		setIsPageLoading( false );
 	}

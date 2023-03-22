@@ -35,7 +35,6 @@
   "homepage": "https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress#readme",
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "@wordpress/api-fetch": "^6.21.0",
     "@wordpress/core-data": "^6.1.0",
     "@wordpress/i18n": "^4.24.0",
     "@wordpress/scripts": "^25.1.0",
