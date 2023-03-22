@@ -68,31 +68,23 @@ class Ajax {
 		$recipient = ! empty( $_POST['recipient'] ) ? sanitize_email( $_POST['recipient'] ) : '';
 		$sitekey   = ! empty( $_POST['sitekey'] ) ? sanitize_key( $_POST['sitekey'] ) : '';
 
-		if ( empty( $recipient ) ) {
+		if ( empty( $recipient ) || ! is_email($recipient) ) {
 			wp_send_json_error( [
                 'type'    => 'error',
-                'message' => __( 'Recipient e-mail is required', 'wpfeather' ),
+                'message' => __( 'Valid recipient e-mail is required', 'wpfeather' ),
             ] );
 		}
 
-		$updated = wpfeather_update_option( 'wpfeather_settings', [
+		// update the settings
+		wpfeather_update_option( 'wpfeather_settings', [
 			'recipient' => $recipient,
 			'sitekey'   => $sitekey,
 		] );
 
-		if ( $updated ) {
-			wp_send_json_success( [
-                'type'    => 'success',
-                'message' => __( 'Saved successfully', 'wpfeather' ),
-            ] );
-		} else {
-			wp_send_json_error( [
-                'type'    => 'error',
-                'message' => __( 'Error saving data', 'wpfeather' ),
-            ] );
-		}
-
-
+		wp_send_json_success( [
+			'type'    => 'success',
+			'message' => __( 'Saved successfully', 'wpfeather' ),
+		] );
 	}
 
 	/**

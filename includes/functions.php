@@ -8,7 +8,7 @@
  *
  * @return bool
  */
-function wpfeather_update_option( $option, $value, $autoload = false ) {
+function wpfeather_update_option( $option, $value, $autoload = null ) {
 	if ( ! is_multisite() ) {
 		return update_option( $option, $value, $autoload );
 	} else {

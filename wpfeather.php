@@ -305,9 +305,13 @@ final class WPfeather {
 	 * @return void
 	 */
 	public function send_mail( $name, $email, $message ) {
-		$email_from    = get_bloginfo( 'admin_email' );
-		$email_to      = get_bloginfo( 'admin_email' );
+		$email_to      = wpfeather_get_option( 'recipient', 'wpfeather_settings' );
 		$email_subject = sprintf( esc_html__( 'Message from %s', 'wpfeather' ), get_bloginfo( 'name' ) );
+
+		// no email recipient setup yet. we will mail the site admin as the fallback
+		if ( empty( $email_to ) ) {
+			$email_to = get_bloginfo( 'admin_email' );
+		}
 
 		/* translators: Do not translate USERNAME, URL_DELETE, SITENAME, SITEURL: those are placeholders. */
 		$mail_body = __(
@@ -332,7 +336,7 @@ Thanks for using WPFeather"
 
 		$headers = [
 			'Content-Type: text/html; charset=UTF-8',
-			'From: "' . esc_attr( get_bloginfo( 'name' ) ) . '" <' . sanitize_email( $email_from ) . '>',
+			'From: "' . esc_attr( get_bloginfo( 'name' ) ) . '" <' . sanitize_email( $email_to ) . '>',
 			'Reply-To: <'.sanitize_email( $email ).'>'
 		];
 

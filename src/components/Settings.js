@@ -2,19 +2,21 @@
  * WordPress dependencies
  */
 import { Fragment, useState, useEffect } from '@wordpress/element';
-import { Button } from '@wordpress/components';
+import { Button, Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 function Settings() {
 	const [isPageLoading, setIsPageLoading] = useState(true);
 
+	const [notice, setNotice] = useState({
+		status: false,
+		message: ''
+	});
+
 	const [wpfeatherSettings, setWpfeatherSettings] = useState(window.wpfeatherSettings);
 
-	useEffect(() => {
-		setIsPageLoading( false );
-	}, []);
-
 	useEffect( () => {
+		setIsPageLoading(true);
 		jQuery.ajax({
 			url: wpfeatherSettings.ajaxurl,
 			type: 'POST',
@@ -33,18 +35,21 @@ function Settings() {
 				}
 			},
 			error: function (err) {
-				alert('Something went wrong');
-				console.log(err.responseText);
+				setNotice({
+					status: 'error',
+					message: err.responseText,
+				});
 			},
 		});
+		setIsPageLoading(false);
 	}, [] );
 
 	function onSubmitFormHandler( event ) {
 		event.preventDefault();
 		setIsPageLoading( true );
 
-		const recipient = event.target.recipient.value;
-		const sitekey = event.target.sitekey.value;
+		const recipient = event.target.recipient.value.trim();
+		const sitekey = event.target.sitekey.value.trim();
 
 		jQuery.ajax({
 			url: wpfeatherSettings.ajaxurl,
@@ -56,10 +61,10 @@ function Settings() {
 				sitekey: sitekey
 			},
 			success: function (response) {
-				if (response.success) {
-				} else {
-					console.log('error');
-				}
+				setNotice({
+					status: response.data.type,
+					message: response.data.message,
+				});
 			},
 			error: function (err) {
 				alert('Something went wrong');
@@ -72,6 +77,22 @@ function Settings() {
 	return (
 		<Fragment>
 			<div className="wrap">
+				{ notice.status !== false &&
+					<Notice
+						status={notice.status}
+						onRemove={() => {
+							setNotice({
+								status: false,
+								message: ''
+							});
+						}
+						}
+					>
+						<p>
+							{ notice.message }
+						</p>
+					</Notice>
+				}
 				<h1>{ __( 'WPFeather Settings', 'wpfeather' ) }</h1>
 				<div id="wpfeather-settings-fields">
 					<form onSubmit={ ( event ) => onSubmitFormHandler( event ) }>
@@ -89,7 +110,6 @@ function Settings() {
 									type="email"
 									placeholder="admin@mail.com" />
 									<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{ __( 'Where the e-mail will be received', 'wpfeather' ) }</p>
-									<p className="text-red-500 text-xs italic invisible">{ __( 'Please fill out this field.', 'wpfeather' ) }</p>
 							</div>
 						</div>
 						<div className="flex flex-wrap -mx-3 mb-6">
@@ -106,10 +126,10 @@ function Settings() {
 									type="text"
 									placeholder="YOUR_SITE_KEY"/>
 								<p id="helper-text-explanation"
-								   className="mt-2 text-sm text-gray-500 dark:text-gray-400">We’ll never share your
-									details. Learn more about <a href="https://www.cloudflare.com/products/turnstile/"
-																 target="_blank"
-														 className="font-medium text-blue-600 hover:underline dark:text-blue-500">Cloudflare Turnstile</a>.</p>
+								   className="mt-2 text-sm text-gray-500 dark:text-gray-400">{ __( 'How to set up', 'wpfeather' ) } <a
+									href="https://developers.cloudflare.com/turnstile/get-started/"
+									target="_blank"
+									className="font-medium text-blue-600 hover:underline dark:text-blue-500">Cloudflare Turnstile</a>.</p>
 
 							</div>
 						</div>
