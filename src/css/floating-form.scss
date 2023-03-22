@@ -41,7 +41,7 @@ $border: #d1d5db;
     justify-content: center;
     flex-direction: column;
     background: $theme-alt;
-    padding: 30px;
+    padding: 1em;
 
     @media (max-width: 767px) {
       padding: 15px;
@@ -70,9 +70,9 @@ $border: #d1d5db;
     background: $white;
     padding: 20px;
 
-    @media (min-width: 767px) {
-      height: 402px;
-    }
+    //@media (min-width: 767px) {
+    //  height: 402px;
+    //}
 
     input[type='text'],
     input[type='email'],
@@ -123,6 +123,11 @@ $border: #d1d5db;
       cursor: pointer;
       transition: all .25s;
 
+      &:disabled {
+        pointer-events: none;
+        opacity: .5;
+      }
+
       @media (max-width: 767px) {
         padding: 8px;
       }
@@ -149,7 +154,7 @@ $border: #d1d5db;
     left: 0;
   }
 
-  &-thanks-msg {
+  .contact-thanks-msg {
     display: none;
     flex-direction: column;
     align-items: center;
@@ -211,5 +216,38 @@ $border: #d1d5db;
   &:hover {
     background: $theme-hover;
     border-color: $theme-hover;
+  }
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  display: none;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 64px );
+  left: calc(50% - 64px);
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

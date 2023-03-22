@@ -25,6 +25,7 @@ class Frontend {
 	public function register_scripts() {
 		wp_register_script( 'wpfeather-form', WPFEATHER_ASSETS . '/js/floating-form.js', [ 'jquery' ], WPFEATHER_VERSION, true );
 		wp_register_style( 'wpfeather-form', WPFEATHER_ASSETS . '/js/form.css', [], WPFEATHER_VERSION );
+		wp_register_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js' );
 
 		$wpFeatherForm = [
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
@@ -38,10 +39,22 @@ class Frontend {
 		wp_enqueue_style( 'wpfeather-form' );
 	}
 
+	/**
+	 * Adding the frontend floating form
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
 	public function add_floating_form() {
 		$floating_form = WPFEATHER_INCLUDES . '/Frontend/views/floating-form.php';
-		// @TODO:replace with site key from settings
-		$turnstile_site_key = '0x4AAAAAAADQdgiADHUielUbUBtzJ4raQXk';
+
+		$turnstile_site_key = wpfeather_get_option( 'sitekey', 'wpfeather_settings' );
+
+		if ( ! empty( $turnstile_site_key ) ) {
+			wp_enqueue_script( 'cloudflare-turnstile' );
+		}
+
 		if ( file_exists( $floating_form ) ) {
 			include $floating_form;
 		}

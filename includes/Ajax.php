@@ -75,7 +75,7 @@ class Ajax {
             ] );
 		}
 
-		$updated = update_option( 'wpfeather_settings', [
+		$updated = wpfeather_update_option( 'wpfeather_settings', [
 			'recipient' => $recipient,
 			'sitekey'   => $sitekey,
 		] );

@@ -4,8 +4,25 @@ import '../css/floating-form.scss';
     const form = $('#wpfeather-form');
     const toggleBtn = $('.wpfeather-toggler');
     const contactForm = $('.wpfeather-contact');
-    const siteKey = $('.cf-turnstile').data('sitekey');
-    // const siteKey = '0x4AAAAAAADQdgiADHUielUbUBtzJ4raQXk';
+    const siteKey = $('#wpfeather-turnstile').data('sitekey');
+    let token = '';
+
+    if (typeof siteKey !== 'undefined') {
+        window.onloadTurnstileCallback = () => {
+            turnstile.render('#wpfeather-turnstile', {
+                sitekey: siteKey,
+                callback: (token) => {
+                    token = token;
+
+                    $('#wpfeather-form button[type="submit"]').removeAttr('disabled');
+                },
+            });
+        };
+
+        $( document ).ready(() => {
+            turnstile.ready(onloadTurnstileCallback);
+        });
+    }
 
     // handle form submit
     form.on('submit', (e) => {
@@ -53,6 +70,9 @@ import '../css/floating-form.scss';
             return false;
         }
 
+        // show the loading spinner
+        $('.lds-dual-ring').css('display', 'block');
+
         $.ajax({
             url: wpFeatherForm.ajaxUrl,
             type: 'POST',
@@ -61,12 +81,17 @@ import '../css/floating-form.scss';
                 fullName: fullName.val().trim(),
                 email: email.val().trim(),
                 message: message.val().trim(),
-                nonce: wpFeatherForm.nonce
+                nonce: wpFeatherForm.nonce,
+                token: token
             },
             success: function (response) {
                 if (response.success) {
-                    $('#wpfeather-form button, #wpfeather-form .contact-input-group').css('display', 'none');
+                    $('#wpfeather-form button, #wpfeather-form .contact-input-group, #wpfeather-form .wpfeather-turnstile')
+                        .css('display', 'none');
                     $('.contact-thanks-msg').css('display', 'block');
+
+                    // hide the loading spinner
+                    $('.lds-dual-ring').css('display', 'none');
                 } else {
                     errors.push({
                         type: 'required',
@@ -89,20 +114,5 @@ import '../css/floating-form.scss';
 
         if ( $(contactForm).hasClass('wpfeather-contact-open') ) {}
     });
-
-
-    // if (typeof turnstile === 'undefined') {
-    //     return;
-    // }
-    //
-    // turnstile.render('#wpfeather-form', {
-    //     sitekey: siteKey,
-    //     callback: function(token) {
-    //         console.log(`Challenge Success ${token}`);
-    //     },
-    // });
-    //
-    // // if using synchronous loading, will be called once the DOM is ready
-    // turnstile.ready(onloadTurnstileCallback);
 
 })(jQuery);

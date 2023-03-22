@@ -30,10 +30,10 @@ class Installer {
         $installed = get_option( 'wpfeather_installed' );
 
         if ( ! $installed ) {
-            update_option( 'wpfeather_installed', time() );
+	        wpfeather_update_option( 'wpfeather_installed', time() );
         }
 
-        update_option( 'wpfeather_version', WPFEATHER_VERSION );
+	    wpfeather_update_option( 'wpfeather_version', WPFEATHER_VERSION );
     }
 
 	public function add_keys() {
