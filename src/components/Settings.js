@@ -94,10 +94,10 @@ function Settings() {
 					</Notice>
 				}
 				<h1>{ __( 'WPFeather Settings', 'wpfeather' ) }</h1>
-				<div id="wpfeather-settings-fields">
+				<div id="wpfeather-settings-fields" class="mt-4">
 					<form onSubmit={ ( event ) => onSubmitFormHandler( event ) }>
 						<div className="flex flex-wrap -mx-3 mb-6">
-							<div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+							<div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
 								<label
 									className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 									htmlFor="recipient">
@@ -113,7 +113,7 @@ function Settings() {
 							</div>
 						</div>
 						<div className="flex flex-wrap -mx-3 mb-6">
-							<div className="w-full md:w-1/2 px-3">
+							<div className="w-full md:w-1/3 px-3">
 								<label
 									className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
 									htmlFor="sitekey">
