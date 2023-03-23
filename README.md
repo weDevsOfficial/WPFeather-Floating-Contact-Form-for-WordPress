@@ -1,5 +1,5 @@
 === WPFeather - lightweight spam-protected floating contact form  ===
-Contributors: tareq1988, weDevs, nizamuddinbabu
+Contributors: tareq1988, weDevs, nizamuddinbabu, sapayth, saiftheboss7
 Tags: floating contact form, lightweight contact form, Spam protected contact form, floating contact form widget, chat, click to chat, floating chat, floating form
 Requires at least: 6.0
 Tested up to: 6.1
