@@ -127,7 +127,8 @@ import '../css/floating-form.scss';
         $('.contact-thanks-msg').css('display', 'none');
 
         if (typeof siteKey !== 'undefined') {
-            turnstile.reset(turnstileWidget)
+            turnstile.reset(turnstileWidget);
+            $('#wpfeather-form button[type="submit"]').attr('disabled', 'disabled');
         }
     });
 

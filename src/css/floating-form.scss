@@ -239,8 +239,8 @@ $border: #d1d5db;
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 64px );
-  left: calc(50% - 64px);
-  border: 6px solid #fff;
+  left: calc(55% - 64px);
+  border: 6px solid;
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }

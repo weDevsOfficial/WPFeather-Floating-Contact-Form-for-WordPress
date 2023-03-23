@@ -317,10 +317,10 @@ final class WPfeather {
 		$mail_body = __(
 			"Howdy,
 
-Someone submitted a form through WPFeather from ###SITEURL###. The form details below:\n
-Name: $name\n
-e-mail: $email\n
-Message: $message\n
+Someone submitted a form through WPFeather from ###SITEURL###. The form details below:<br>
+<b>Name:</b> $name<br>
+<b>e-mail:</b> $email<br>
+<b>Message:</b> $message<br>
 
 Thanks for using WPFeather"
 		);
