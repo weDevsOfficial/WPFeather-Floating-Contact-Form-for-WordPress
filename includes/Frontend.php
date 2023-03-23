@@ -50,6 +50,10 @@ class Frontend {
 		$floating_form = WPFEATHER_INCLUDES . '/Frontend/views/floating-form.php';
 
 		$turnstile_site_key = wpfeather_get_option( 'sitekey', 'wpfeather_settings' );
+		$thank_you_message  = wpfeather_get_option( 'thank_you_msg', 'wpfeather_settings' );
+		// checking with isset instead of empty because user might save the title or body empty
+		$msg_title = isset( $thank_you_message['title'] ) ? esc_html( $thank_you_message['title'] ) : 'We received your message';
+		$msg_body  = isset( $thank_you_message['body'] ) ? esc_html( $thank_you_message['body'] ) : 'We will reach you with your email address soon. Thank you for the time!';
 
 		if ( ! empty( $turnstile_site_key ) ) {
 			wp_enqueue_script( 'cloudflare-turnstile' );

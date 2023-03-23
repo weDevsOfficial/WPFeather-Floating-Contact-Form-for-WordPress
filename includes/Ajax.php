@@ -65,8 +65,20 @@ class Ajax {
 	            'message' => __( 'Unauthorized', 'wpfeather' ),
 	        ] );
 		}
+
 		$recipient = ! empty( $_POST['recipient'] ) ? sanitize_email( $_POST['recipient'] ) : '';
 		$sitekey   = ! empty( $_POST['sitekey'] ) ? sanitize_text_field( $_POST['sitekey'] ) : '';
+		$message   = ! empty( $_POST['thank_you_msg'] ) ? $_POST['thank_you_msg'] : '';
+
+		if ( ! is_array( $message ) ) {
+			wp_send_json_error( [
+                'type'    => 'error',
+                'message' => __( 'Invalid message title or body format', 'wpfeather' ),
+            ] );
+		}
+
+		$title = ! empty( $message['title' ] ) ? sanitize_text_field( $message['title'] ) : '';
+		$body  = ! empty( $message['body'] ) ? sanitize_text_field( $message['body'] ) : '';
 
 		if ( empty( $recipient ) || ! is_email($recipient) ) {
 			wp_send_json_error( [
@@ -79,6 +91,10 @@ class Ajax {
 		wpfeather_update_option( 'wpfeather_settings', [
 			'recipient' => $recipient,
 			'sitekey'   => $sitekey,
+			'thank_you_msg' => [
+				'title' => $title,
+				'body'  => $body,
+			]
 		] );
 
 		wp_send_json_success( [
