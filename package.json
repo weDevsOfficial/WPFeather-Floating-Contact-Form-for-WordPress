@@ -1,0 +1,50 @@
+{
+  "name": "wpfeather-floating-contact-form-for-wordpress",
+  "version": "1.0.0",
+  "description": "A very lightweight floating contact form for WordPress with built-in spam protection & Cloudflare Turnstile integration",
+  "main": "src/wpfeather-settings.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "start:hot": "wp-scripts start --hot",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js",
+    "make-pot:local": "wp i18n make-pot . languages/wpfeathers.pot",
+    "zip": "./build/zip.sh",
+    "version:replace": "node bin/version-replace",
+    "release": "npm run version:replace && npm run build && npm run make-pot:local &&` npm run zip:create"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress"
+  },
+  "author": "weDevs",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress/issues"
+  },
+  "homepage": "https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress#readme",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
+    "@wordpress/core-data": "^6.1.0",
+    "@wordpress/i18n": "^4.24.0",
+    "@wordpress/scripts": "^25.1.0",
+    "archiver": "^5.3.1",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "replace-in-file": "^6.3.5",
+    "sass": "^1.59.3",
+    "tailwindcss": "^3.2.4"
+  }
+}
