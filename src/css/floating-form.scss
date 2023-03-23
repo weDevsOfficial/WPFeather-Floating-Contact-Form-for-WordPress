@@ -70,10 +70,6 @@ $border: #d1d5db;
     background: $white;
     padding: 20px;
 
-    //@media (min-width: 767px) {
-    //  height: 402px;
-    //}
-
     input[type='text'],
     input[type='email'],
     textarea {
@@ -109,33 +105,37 @@ $border: #d1d5db;
         height: auto;
       }
     }
+  }
 
-    button[type='submit'] {
-      width: 100%;
-      color: $white;
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5;
-      background: $theme;
-      padding: 12px 16px;
-      border-radius: 5px;
-      border: 1px solid $theme;
-      cursor: pointer;
-      transition: all .25s;
+  button[type='reset'], button[type='submit'] {
+    width: 100%;
+    color: $white;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    background: $theme;
+    padding: 12px 16px;
+    border-radius: 5px;
+    border: 1px solid $theme;
+    cursor: pointer;
+    transition: all .25s;
 
-      &:disabled {
-        pointer-events: none;
-        opacity: .5;
-      }
-
-      @media (max-width: 767px) {
-        padding: 8px;
-      }
-
-      &:hover {
-        background: $theme-hover;
-      }
+    &:disabled {
+      pointer-events: none;
+      opacity: .5;
     }
+
+    &:hover {
+      background: $theme-hover;
+    }
+
+    @media (max-width: 767px) {
+      padding: 8px;
+    }
+  }
+
+  #wpfeather-send-another {
+    display: none;
   }
 
   .contact-input-group {
@@ -175,6 +175,7 @@ $border: #d1d5db;
 
     p {
       color: $text-color;
+      margin-bottom: 2em;
     }
   }
 }
@@ -220,7 +221,6 @@ $border: #d1d5db;
 }
 
 .lds-dual-ring {
-  display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
@@ -229,6 +229,7 @@ $border: #d1d5db;
   background: rgba(0, 0, 0, .5);
   display: none;
 }
+
 .lds-dual-ring:after {
   content: " ";
   display: block;
@@ -243,6 +244,7 @@ $border: #d1d5db;
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

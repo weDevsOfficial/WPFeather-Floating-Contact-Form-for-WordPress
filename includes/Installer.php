@@ -54,6 +54,6 @@ class Installer {
 		$wpfeather_options['secret_keys'] = $keys;
 
 		// save the newly generated keys
-		essential_form_update_option( 'wpfeather_options', $wpfeather_options );
+		wpfeather_update_option( 'wpfeather_options', $wpfeather_options );
 	}
 }

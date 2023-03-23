@@ -66,7 +66,7 @@ class Ajax {
 	        ] );
 		}
 		$recipient = ! empty( $_POST['recipient'] ) ? sanitize_email( $_POST['recipient'] ) : '';
-		$sitekey   = ! empty( $_POST['sitekey'] ) ? sanitize_key( $_POST['sitekey'] ) : '';
+		$sitekey   = ! empty( $_POST['sitekey'] ) ? sanitize_text_field( $_POST['sitekey'] ) : '';
 
 		if ( empty( $recipient ) || ! is_email($recipient) ) {
 			wp_send_json_error( [
