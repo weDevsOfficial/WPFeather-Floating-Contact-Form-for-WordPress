@@ -14,8 +14,8 @@ $border: #d1d5db;
 
 .wpfeather-contact {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
+  bottom: 1em;
+  right: 100px;
   width: 370px;
   border-radius: 10px;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -24,6 +24,7 @@ $border: #d1d5db;
   visibility: hidden;
   transform: translateY(50px);
   transition: all .25s;
+  z-index: 99999;
 
   @media (max-width: 767px) {
     width: calc(100% - 80px);
