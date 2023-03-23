@@ -1,5 +1,5 @@
 === WPFeather - lightweight spam-protected floating contact form  ===
-Contributors: tare1988, weDevs
+Contributors: tareq1988, weDevs, nizamuddinbabu
 Tags: floating contact form, lightweight contact form, Spam protected contact form
 Requires at least: 6.0
 Tested up to: 6.1
@@ -33,5 +33,7 @@ All of the anti-spam measures are conducted behind the scenes, without interferi
 The plugin is also open source, which means that anyone can view the code and make modifications or improvements to it. This makes the plugin more transparent and trustworthy, as users can see exactly how it works and can be confident that there are no hidden backdoors or malicious code.
 👉 [Contribute to the plugin]([url](https://github.com/weDevsOfficial/WPFeather-Floating-Contact-Form-for-WordPress))
 
-
 Overall, WPFeather Contact Form is a great lightweight floating contact form plugin for anyone who needs a easy-to-use contact form that offers superior spam protection and is open source. Whether you are running a small personal website or a large business website, WPFeather Contact Form can help you create the perfect contact form to meet your needs.
+
+## Thanks to other open source projects
+Thanks to [Essential form plugin](https://wordpress.org/plugins/essential-form/#description), which made it possible to create the plugin. Some SPAM logic features were inspired from the [Essential Form plugin](https://wordpress.org/plugins/essential-form/#description)
