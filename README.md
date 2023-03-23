@@ -24,8 +24,11 @@ WP Feather shows a floating contact form which is very visually appealing. The f
 
 
 ## 🎯 Powerful SPAM Protection 
-Another key feature of WPFeather Contact Form is its superior spam protection. The plugin is designed to prevent spam submissions, which can be a major problem for many website owners. The plugin uses a combination of techniques to prevent spam, including Cludflare Turnstile (CAPTCHA alternative for humans), dynamically honeypot fields.
-This plugin does not rely on jQuery or any other bloated libraries. It has a clever anti-spam system The Ajax action that manages email sending is dynamically generated and different for each site. Additionally, the submission process is based on a unique random token for each form submission and random keys that are specific to each website.
+Another key feature of WPFeather Contact Form is its superior spam protection. The plugin is designed to prevent spam submissions, which can be a major problem for many website owners. The plugin uses a combination of techniques to prevent spam, including [Cloudflare Turnstile]([url](https://www.cloudflare.com/products/turnstile/)) (CAPTCHA alternative for humans), dynamically generated honeypot fields.
+
+This plugin does not rely on jQuery or any other bloated libraries. Only pure JavaScript. No bloated stuff, no impact on loading speed!
+
+It has a clever anti-spam system The AJAX action that manages email sending is dynamically generated and different for each site. Additionally, the submission process is based on a unique random token for each form submission and random keys that are specific to each website.
 
 All of the anti-spam measures are conducted behind the scenes, without interfering with the user's experience, and most importantly, they are effective. On top of it, you can use  [Cloudflare Turnstile]([url](https://www.cloudflare.com/products/turnstile/)) if you want with it as well
 
